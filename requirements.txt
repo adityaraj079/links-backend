@@ -27,6 +27,7 @@ executing==2.0.1
 fastjsonschema==2.19.1
 fiona==1.9.6
 Flask==3.0.2
+Flask-Cors==4.0.0
 fonttools==4.50.0
 fqdn==1.5.1
 geopandas==0.14.3
