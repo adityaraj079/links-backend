@@ -12,3 +12,4 @@ requests==2.31.0
 urllib3==2.2.1
 Google-Images-Search==1.4.6
 beautifulsoup4==4.10.0
+python-dotenv==0.19.2
