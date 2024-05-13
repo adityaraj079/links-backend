@@ -111,23 +111,23 @@ def get_links_with_titles():
             video_url = row[3] if len(row) > 3 else ''  # Check if video URL is present in the Excel row
             
             # Check if image URL and video URL are not already present
-            if not image_url:
-                # image_url = get_image_url_from_site(link)
-                concated_image_url = concatenate_characters(image_url)
-                # print('conca ',len(concated_image_url) )
+            # if not image_url:
+            #     # image_url = get_image_url_from_site(link)
+            #     concated_image_url = concatenate_characters(image_url)
+            #     # print('conca ',len(concated_image_url) )
                 
-                ws.cell(row=idx, column=3, value=concated_image_url)
+            #     # ws.cell(row=idx, column=3, value=concated_image_url)
             
-            # If video URL is not present, obtain it from the site
-            if not video_url:
-                # video_url = get_video_urls_from_site(link)
-                concated_video_url = concatenate_characters(video_url)
-                ws.cell(row=idx, column=4, value=concated_video_url)
+            # # If video URL is not present, obtain it from the site
+            # if not video_url:
+            #     # video_url = get_video_urls_from_site(link)
+            #     concated_video_url = concatenate_characters(video_url)
+            #     # ws.cell(row=idx, column=4, value=concated_video_url)
 
-            # Write URLs to the Excel file if they are obtained
-            print(title,image_url,video_url)
-            # Save changes to the Excel file
-            wb.save('links-new.xlsx')
+            # # Write URLs to the Excel file if they are obtained
+            # print(title,image_url,video_url)
+            # # Save changes to the Excel file
+            # wb.save('links-new.xlsx')
 
             # Append data to the JSON response
             links_with_titles.append({'title': title, 'link': link, 'image_url': image_url, 'video_url': video_url})
@@ -183,13 +183,13 @@ def get_names():
                 if img_url:
                     print(test,f". Image found for: {row[0]}")
                     # Write the image URL to the Excel file
-                    ws.cell(row=idx, column=2, value=img_url)  # Write image URL in the second column
-                    ws.cell(row=idx, column=3, value=img_url1)
-                    ws.cell(row=idx, column=4, value=img_url2)
-                    ws.cell(row=idx, column=5, value=img_url3)
-                    ws.cell(row=idx, column=6, value=img_url4)
-                    ws.cell(row=idx, column=7, value=img_url5)
-                    wb.save('links-new.xlsx')
+                    # ws.cell(row=idx, column=2, value=img_url)  # Write image URL in the second column
+                    # ws.cell(row=idx, column=3, value=img_url1)
+                    # ws.cell(row=idx, column=4, value=img_url2)
+                    # ws.cell(row=idx, column=5, value=img_url3)
+                    # ws.cell(row=idx, column=6, value=img_url4)
+                    # ws.cell(row=idx, column=7, value=img_url5)
+                    # wb.save('links-new.xlsx')
                 else:
                     print(test,f". No image found for: {row[0]}")
             test+=1
