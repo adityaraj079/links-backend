@@ -7,13 +7,16 @@ from google_images_search import GoogleImagesSearch
 from bs4 import BeautifulSoup
 import re
 import base64
-import config
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
 CORS(app)
 
-API_KEY = config.API_KEY
-CSE_ID = config.CSE_ID
+load_dotenv()
+API_KEY = os.getenv('API_KEY')
+CSE_ID = os.getenv('CSE_ID')
+
 # API_KEY = 'c7c44c58ab660dc0237b096e240f5381b99b75efef1205db009c341203bfeb15'
 
 def search_image(query):
