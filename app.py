@@ -153,7 +153,7 @@ def get_names():
     names_with_images = []
     for idx, row in enumerate(ws.iter_rows(values_only=True), start=1):
         if row[0]:
-            # Check if image URL is already present in the Excel file
+            # # Check if image URL is already present in the Excel file
             if len(row) > 5 and row[5]:  # Check if second column exists and is not empty
                 img_url = row[1]
                 img_url1 = row[2]
@@ -163,36 +163,36 @@ def get_names():
                 img_url5 = row[6]
                 search_query = quote(row[0])
                 follow_link = f'https://www.google.com/search?q={search_query}' + '+porn'
-                print(test,f". Image already present for: {row[0]}")
-            else:
-                # Perform Google search if image URL is not present
-                query = row[0] + ' pornstar pornpics portrait'
-                query1 = row[0] + ' blacked pichunter thumb'
-                query2 = row[0] + ' vixen pornpics portrait'
-                query3 = row[0] + ' bangbros pornpics portrait'
-                query4 = row[0] + ' innocenthigh pornpics portrait'
-                query5 = row[0] + ' naughty america pornpics portrait'
-                img_url = search_image(query)
-                img_url1 = search_image(query1)
-                img_url2 = search_image(query2)
-                img_url3 = search_image(query3)
-                img_url4 = search_image(query4)
-                img_url5 = search_image(query5)
-                search_query = quote(row[0])
-                follow_link = f'https://www.google.com/search?q={search_query}' + '+porn'
-                if img_url:
-                    print(test,f". Image found for: {row[0]}")
-                    # Write the image URL to the Excel file
-                    # ws.cell(row=idx, column=2, value=img_url)  # Write image URL in the second column
-                    # ws.cell(row=idx, column=3, value=img_url1)
-                    # ws.cell(row=idx, column=4, value=img_url2)
-                    # ws.cell(row=idx, column=5, value=img_url3)
-                    # ws.cell(row=idx, column=6, value=img_url4)
-                    # ws.cell(row=idx, column=7, value=img_url5)
-                    # wb.save('links-new.xlsx')
-                else:
-                    print(test,f". No image found for: {row[0]}")
-            test+=1
+            #     print(test,f". Image already present for: {row[0]}")
+            # else:
+            #     # Perform Google search if image URL is not present
+            #     query = row[0] + ' pornstar pornpics portrait'
+            #     query1 = row[0] + ' blacked pichunter thumb'
+            #     query2 = row[0] + ' vixen pornpics portrait'
+            #     query3 = row[0] + ' bangbros pornpics portrait'
+            #     query4 = row[0] + ' innocenthigh pornpics portrait'
+            #     query5 = row[0] + ' naughty america pornpics portrait'
+            #     img_url = search_image(query)
+            #     img_url1 = search_image(query1)
+            #     img_url2 = search_image(query2)
+            #     img_url3 = search_image(query3)
+            #     img_url4 = search_image(query4)
+            #     img_url5 = search_image(query5)
+            #     search_query = quote(row[0])
+            #     follow_link = f'https://www.google.com/search?q={search_query}' + '+porn'
+            #     if img_url:
+            #         print(test,f". Image found for: {row[0]}")
+            #         # Write the image URL to the Excel file
+            #         # ws.cell(row=idx, column=2, value=img_url)  # Write image URL in the second column
+            #         # ws.cell(row=idx, column=3, value=img_url1)
+            #         # ws.cell(row=idx, column=4, value=img_url2)
+            #         # ws.cell(row=idx, column=5, value=img_url3)
+            #         # ws.cell(row=idx, column=6, value=img_url4)
+            #         # ws.cell(row=idx, column=7, value=img_url5)
+            #         # wb.save('links-new.xlsx')
+            #     else:
+            #         print(test,f". No image found for: {row[0]}")
+            # test+=1
             # Append name and image URL to the list
             names_with_images.append({'id': idx,'name': row[0], 'image': img_url, 'image1': img_url1, 'image2': img_url2, 'image3': img_url3, 'image4': img_url4, 'image5': img_url5, 'follow_link': follow_link})
     return names_with_images
