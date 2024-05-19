@@ -31,7 +31,17 @@ def search_image(query):
 def welcome():
     return "This is starting page"
 
-
+def get_title_from_url(url):
+    try:
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        title = soup.title.string
+        if (title == 'Just a moment...'):
+            return None
+        return title
+    except Exception as e:
+        return None
+    
 def get_image_url_from_site(site_url):
     try:
         # Fetch the HTML content of the website
@@ -109,7 +119,8 @@ def get_links_with_titles():
             link = row[1]
             image_url = row[2] if len(row) > 2 else ''  # Check if image URL is present in the Excel row
             video_url = row[3] if len(row) > 3 else ''  # Check if video URL is present in the Excel row
-            
+            title_from_link = row[4] if len(row) > 4 else ''
+
             # Check if image URL and video URL are not already present
             # if not image_url:
             #     # image_url = get_image_url_from_site(link)
@@ -130,7 +141,7 @@ def get_links_with_titles():
             # wb.save('links-new.xlsx')
 
             # Append data to the JSON response
-            links_with_titles.append({'title': title, 'link': link, 'image_url': image_url, 'video_url': video_url})
+            links_with_titles.append({'title': title, 'link': link, 'image_url': image_url, 'video_url': video_url, 'title_from_link': title_from_link})
 
     return jsonify(links_with_titles)
 
