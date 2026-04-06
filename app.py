@@ -4,6 +4,7 @@ from flask_cors import CORS
 import requests
 from dotenv import load_dotenv
 import os
+import shutil
 
 app = Flask(__name__)
 CORS(app)
@@ -11,7 +12,26 @@ CORS(app)
 load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATABASE_PATH = os.path.join(BASE_DIR, 'links.db')
+DEPLOY_DB_PATH = os.path.join(BASE_DIR, 'links.db')
+TEMP_DB_PATH = os.path.join('/tmp', 'links.db')
+
+
+def is_writable_directory(path):
+    return os.access(path, os.W_OK)
+
+
+def get_database_path():
+    if os.environ.get('VERCEL') == '1' or not is_writable_directory(BASE_DIR):
+        if os.path.exists(DEPLOY_DB_PATH) and not os.path.exists(TEMP_DB_PATH):
+            try:
+                shutil.copyfile(DEPLOY_DB_PATH, TEMP_DB_PATH)
+            except OSError:
+                pass
+        return TEMP_DB_PATH
+    return DEPLOY_DB_PATH
+
+DATABASE_PATH = get_database_path()
+
 
 def get_db_connection():
     return sqlite3.connect(DATABASE_PATH)
