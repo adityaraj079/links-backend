@@ -111,8 +111,10 @@ CREATE TABLE profiles (
    - Build Command: (leave empty)
    - Output Directory: (leave empty)
    - Install Command: `pip install -r requirements.txt`
-3. **Environment Variables**: Set `API_KEY` and `CSE_ID` in Vercel dashboard
+3. **Environment Variables**: Set `API_KEY` and `CSE_ID` in Vercel dashboard (optional)
 4. **Deploy**: Vercel will automatically detect the `vercel.json` configuration
+
+**Note**: Database data is ephemeral in Vercel serverless functions. Added data will be lost between deployments. For persistent data, consider using a cloud database service.
 
 ### Local Development
 ```bash
