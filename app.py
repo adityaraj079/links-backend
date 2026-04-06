@@ -4,6 +4,7 @@ from flask_cors import CORS
 import requests
 from dotenv import load_dotenv
 import os
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -28,9 +29,53 @@ def create_db():
     conn.commit()
     conn.close()
 
-create_db()
+def initialize_real_data():
+    """Load real data from JSON files if database is empty"""
+    try:
+        conn = sqlite3.connect('links.db')
+        c = conn.cursor()
+        
+        # Check if videos table has data
+        c.execute('SELECT COUNT(*) FROM videos')
+        video_count = c.fetchone()[0]
+        
+        if video_count == 0:
+            # Load videos from JSON
+            try:
+                with open('videos_data.json', 'r', encoding='utf-8') as f:
+                    videos_data = json.load(f)
+                
+                for video in videos_data:
+                    c.execute('INSERT INTO videos (video_title, video_link, video_thumbnail, tags) VALUES (?, ?, ?, ?)',
+                             (video['title'], video['link'], video['thumbnail'], video['tags']))
+                print(f"Loaded {len(videos_data)} videos from JSON")
+            except FileNotFoundError:
+                print("videos_data.json not found")
+        
+        # Check if profiles table has data
+        c.execute('SELECT COUNT(*) FROM profiles')
+        profile_count = c.fetchone()[0]
+        
+        if profile_count == 0:
+            # Load profiles from JSON
+            try:
+                with open('profiles_data.json', 'r', encoding='utf-8') as f:
+                    profiles_data = json.load(f)
+                
+                for profile in profiles_data:
+                    c.execute('INSERT INTO profiles (name, picture) VALUES (?, ?)',
+                             (profile['name'], profile['picture']))
+                print(f"Loaded {len(profiles_data)} profiles from JSON")
+            except FileNotFoundError:
+                print("profiles_data.json not found")
+        
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        print(f"Error initializing data: {e}")
 
 create_db()
+initialize_real_data()
 
 @app.route('/')  #Decorator (which comes with function)
 def welcome():
