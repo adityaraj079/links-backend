@@ -8,7 +8,6 @@ A Flask-based REST API for managing video links and profiles. Built with SQLite 
 - **Profile Management**: Manage user profiles with names and pictures
 - **Search Functionality**: Search videos by tags
 - **CORS Enabled**: Supports cross-origin requests from frontend
-- **Google Images Search**: Integration for fetching images (optional)
 
 ## 🛠️ Tech Stack
 
@@ -17,7 +16,6 @@ A Flask-based REST API for managing video links and profiles. Built with SQLite 
 - **Flask-CORS** - Cross-origin resource sharing
 - **Requests** - HTTP library
 - **OpenPyXL** - Excel file processing
-- **Google Images Search** - Image search API
 - **BeautifulSoup4** - HTML parsing
 
 ## 📦 Installation
@@ -39,8 +37,8 @@ A Flask-based REST API for managing video links and profiles. Built with SQLite 
    pip install -r requirements.txt
    ```
 
-4. **Set up environment variables**
-   Create a `.env` file:
+4. **Set up environment variables** (optional)
+   Create a `.env` file if you plan to use Google Images Search:
    ```
    API_KEY=your_google_api_key
    CSE_ID=your_custom_search_engine_id

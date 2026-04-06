@@ -2,7 +2,6 @@ from flask import Flask, jsonify, request
 import sqlite3
 from flask_cors import CORS
 import requests
-import base64
 from dotenv import load_dotenv
 import os
 
@@ -10,8 +9,6 @@ app = Flask(__name__)
 CORS(app)
 
 load_dotenv()
-API_KEY = os.getenv('API_KEY')
-CSE_ID = os.getenv('CSE_ID')
 
 def create_db():
     conn = sqlite3.connect('links.db')
@@ -65,26 +62,6 @@ def get_names():
     conn.close()
     names = [{'id': row[0], 'name': row[1], 'picture': row[2]} for row in rows]
     return jsonify(names)
-
-@app.route('/get_video')
-def get_video():
-    url = "https://www.1024tera.com/sharing/link?surl=Fo5hJjrlmcgyUfBXCM6A7g"
-    response = requests.get(url)
-    
-    # Check if the request was successful
-    if response.status_code == 200:
-        # Base64 encode the video content
-        video_content_base64 = base64.b64encode(response.content).decode('utf-8')
-        
-        # Create a JSON response with the base64 encoded video content
-        response_json = {
-            "video_content_base64": video_content_base64
-        }
-        
-        # Return the JSON response
-        return jsonify(response_json), 200
-    else:
-        return jsonify({"error": "Failed to retrieve video", "status_code": response.status_code}), response.status_code
 
 @app.route('/profile/<int:profile_id>')
 def get_profile(profile_id):
