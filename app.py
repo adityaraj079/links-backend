@@ -33,6 +33,42 @@ def create_db():
 # Get database path
 DB_PATH = create_db()
 
+def initialize_sample_data():
+    """Add sample data if database is empty"""
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    
+    # Check if videos table has data
+    c.execute('SELECT COUNT(*) FROM videos')
+    video_count = c.fetchone()[0]
+    
+    if video_count == 0:
+        # Add sample videos
+        sample_videos = [
+            ('Sample Video 1', 'https://example.com/video1', 'https://via.placeholder.com/300x200?text=Video+1', 'sample, demo'),
+            ('Sample Video 2', 'https://example.com/video2', 'https://via.placeholder.com/300x200?text=Video+2', 'sample, test'),
+            ('Sample Video 3', 'https://example.com/video3', 'https://via.placeholder.com/300x200?text=Video+3', 'demo, example'),
+        ]
+        c.executemany('INSERT INTO videos (video_title, video_link, video_thumbnail, tags) VALUES (?, ?, ?, ?)', sample_videos)
+    
+    # Check if profiles table has data
+    c.execute('SELECT COUNT(*) FROM profiles')
+    profile_count = c.fetchone()[0]
+    
+    if profile_count == 0:
+        # Add sample profiles
+        sample_profiles = [
+            ('Sample Profile 1', 'https://via.placeholder.com/150x150?text=Profile+1'),
+            ('Sample Profile 2', 'https://via.placeholder.com/150x150?text=Profile+2'),
+        ]
+        c.executemany('INSERT INTO profiles (name, picture) VALUES (?, ?)', sample_profiles)
+    
+    conn.commit()
+    conn.close()
+
+# Initialize sample data
+initialize_sample_data()
+
 create_db()
 
 @app.route('/')  #Decorator (which comes with function)
